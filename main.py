@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
+
 from tensorflow.keras.utils import load_img, img_to_array
 from tensorflow.keras.models import load_model
 import numpy as np
 import os
 
-model = load_model("model-micromelum.h5")
+model = load_model("model.h5")
 
 class_names = [
     "Micromelum Minutum - Batang",
@@ -34,6 +35,11 @@ def predict_img(file):
 app = Flask(__name__)
 
 
+@app.route("/")
+def main():
+    return "Hello, World!"
+
+
 @app.route("/predict", methods=["POST"])
 def predict_endpoint():
     if "file" not in request.files:
@@ -45,7 +51,7 @@ def predict_endpoint():
     if file:
         # Simpan file yang diunggah
         filename = file.filename
-        filepath = os.path.join("./tmp", filename)
+        filepath = os.path.join("./static", filename)
         file.save(filepath)
         result = predict_img(filepath)
         os.remove(filepath)
@@ -54,4 +60,4 @@ def predict_endpoint():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8080)
