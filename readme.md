@@ -67,7 +67,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
    - Name: <strong>allow-http</strong>
    - Network: default
    - Direction: ingress
-   - Target tags: `<vm-name>`
+   - Target tags: `<target-vm>`
    - IP ranges: 0.0.0.0/0
    - TCP: 8080
    - Enforcement: enabled
@@ -81,7 +81,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
    - Firewall:
       - Allow HTTP traffic
       - Allow HTTPS traffic
-   - Network tags: http-server, https-server, <strong>allow-http</strong>
+   - Network tags: http-server, https-server, `<target-vm>`
 4. SSH to the VM
 5. Update and Install Required Packages:
    ```sh
